@@ -25,10 +25,15 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# CORS configuration
+# CORS configuration - allow local and production domains
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://kaabil.engineer"],
+    allow_origins=[
+        "http://localhost:3000",
+        "https://kaabil.engineer",
+        "https://*.vercel.app",  # Allow all Vercel preview deployments
+        "*"  # Allow all origins for demo (restrict in production)
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -57,9 +62,11 @@ app.include_router(auth.router, prefix="/auth", tags=["authentication"])
 app.include_router(content.router, prefix="/api", tags=["content"])
 
 if __name__ == "__main__":
+    import os
+    port = int(os.environ.get("PORT", 8000))
     uvicorn.run(
         "main:app",
         host="0.0.0.0",
-        port=8000,
-        reload=True
+        port=port,
+        reload=False  # Disable reload in production
     )
