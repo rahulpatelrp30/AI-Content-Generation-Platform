@@ -31,7 +31,8 @@
                     <h1 class="text-2xl font-bold gradient-text">AI Content Generator</h1>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <span class="text-sm text-gray-600">Demo Mode</span>
+                    <span class="text-sm text-gray-600" id="userEmail"></span>
+                    <button id="logoutBtn" class="hidden text-sm text-red-600 hover:text-red-700 font-medium">Logout</button>
                     <a href="https://github.com/rahulpatelrp30/AI-Content-Generation-Platform" target="_blank" class="text-sm text-indigo-600 hover:text-indigo-700 font-medium">View on GitHub</a>
                 </div>
             </div>
@@ -168,6 +169,21 @@
     </footer>
 
     <script>
+        // Check authentication
+        const currentUser = JSON.parse(localStorage.getItem('demoUser') || 'null');
+        if (!currentUser) {
+            window.location.href = 'login.html';
+        } else {
+            document.getElementById('userEmail').textContent = currentUser.email;
+            document.getElementById('logoutBtn').classList.remove('hidden');
+        }
+
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            localStorage.removeItem('demoUser');
+            window.location.href = 'login.html';
+        });
+
         // Mock content templates
         const templates = {
             blog: (product, audience, tone, instructions) => `# ${product}: Revolutionizing the Way ${audience} Live
