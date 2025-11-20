@@ -1,0 +1,21 @@
+{
+  "name": "ai-content-generation-platform",
+  "version": "1.0.0",
+  "description": "AI-powered content generation platform with Next.js and FastAPI",
+  "main": "index.js",
+  "scripts": {
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && python main.py",
+    "install:all": "cd frontend && npm install && cd ../backend && pip install -r requirements.txt"
+  },
+  "keywords": [
+    "ai",
+    "content-generation",
+    "nextjs",
+    "fastapi",
+    "openai",
+    "postgresql"
+  ],
+  "author": "Rahul",
+  "license": "MIT"
+}
